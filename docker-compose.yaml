@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql-app:
+    image: mysql:5.7.22
+    ports:
+      - "3306:3306"
+    command: --innodb-use-native-aio=0
+    volumes: 
+      - .docker/dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: transferencia-facil
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+     - app-network
+
+  transferencia-facil-app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/usr/share/nginx
+    depends_on:
+      - mysql-app
+    networks:
+     - app-network
+
+networks: 
+  app-network:
+    driver: bridge
