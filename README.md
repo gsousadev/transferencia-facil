@@ -38,7 +38,7 @@ Apos a criação do container é necessária a criação de um link da pasta htm
     
 Logo depois é necessário criar um arquivo .ENV a partir do env.exemple contido no projeto
 
-    docker exec app cp env.exemple .env
+    docker exec app cp .env.example .env
 
 E por fim é necessário rodar as migrations do projeto para criar as tabelas do banco e tambem popular as mesmas
 
