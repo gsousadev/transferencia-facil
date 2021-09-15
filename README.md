@@ -11,16 +11,15 @@ Rodar o comando GIT CLONE para copiar repositório do projeto do github
 
 ### **Criação e inicialização das imagens e containers docker**
 
-
-Apos clonar o projeto executar os comandos do docker-compose para iniciar o projeto. 
+Depois do clone, entrar na pasta do projeto e executar os comandos do docker-compose para iniciar o projeto. 
 
 OBS: O parametro "--build" deve ser usado apenas na primeira vez.
 
-    docker-compose up -d --build
+    cd transferencia-facil && docker-compose up -d --build
 
 *Se você estiver usando Windows o link simbolico pode não funcionar corretamente. Então antes de rodar o comando acima pode ser necessário apagar a pasta oculta no windows html que é um link simbolico do container com o comando "rm html"*
 
-Agpra precisamos dar acesso livre para a pasta storage do laravel
+Agora precisamos dar acesso livre para a pasta storage do laravel
 
     docker exec app chmod -R 777 ./storage/*
 
