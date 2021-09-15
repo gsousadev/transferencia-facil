@@ -11,7 +11,7 @@ Rodar o comando GIT CLONE para copiar repositório do projeto do github
 
 ### **Criação e inicialização das imagens e containers docker**
 
-Depois do clone, entrar na pasta do projeto e executar os comandos do docker-compose para iniciar o projeto. 
+Depois do clone, inicie o docker na sua maquina, entre na pasta do projeto e execute os comandos do docker-compose para iniciar o projeto. 
 
 OBS: O parametro "--build" deve ser usado apenas na primeira vez.
 
