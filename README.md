@@ -15,7 +15,9 @@ Depois do clone, inicie o docker na sua maquina, entre na pasta do projeto e exe
 
 OBS: O parametro "--build" deve ser usado apenas na primeira vez.
 
-    cd transferencia-facil && rm html && docker-compose up -d --build
+    cd transferencia-facil
+    
+    docker-compose up -d --build
 
 *Se você estiver usando Windows o link simbolico pode não funcionar corretamente. Então antes de rodar o comando acima pode ser necessário apagar a pasta oculta no windows html que é um link simbolico do container com o comando "rm html"*
 
