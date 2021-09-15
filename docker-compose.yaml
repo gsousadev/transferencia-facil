@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql-app:
     image: mysql:5.7.22
+    container_name: mysql
     ports:
       - "3306:3306"
     command: --innodb-use-native-aio=0
@@ -16,6 +17,7 @@ services:
 
   transferencia-facil-app:
     build: .
+    container_name: app
     ports:
       - "8080:80"
     volumes:
