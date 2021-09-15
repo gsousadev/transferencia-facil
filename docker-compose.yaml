@@ -5,7 +5,7 @@ services:
     image: mysql:5.7.22
     container_name: mysql
     ports:
-      - "3306:3306"
+      - "4000:3306"
     command: --innodb-use-native-aio=0
     volumes: 
       - .docker/dbdata:/var/lib/mysql
@@ -19,7 +19,7 @@ services:
     build: .
     container_name: app
     ports:
-      - "8080:80"
+      - "5000:80"
     volumes:
       - ./:/usr/share/nginx
     depends_on:
