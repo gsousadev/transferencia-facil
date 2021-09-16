@@ -16,8 +16,7 @@ class CreateTransactionTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->double('value');
-            $table->string('type');
-            $table->string('status');
+            $table->string('status')->default('IN_PROCESS');
             $table->unsignedBigInteger('from_user_id');
             $table->unsignedBigInteger('to_user_id');
             $table->softDeletes();

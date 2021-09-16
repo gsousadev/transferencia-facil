@@ -9,7 +9,18 @@ use Tests\TestCase;
 class UserTest extends TestCase
 {
     /** @test  */
-    public function only_users_can_transfer_money(): void
+    public function transaction_from_shopkeepers_to_user(): void
+    {
+        $shopkeepersToUsersResponse = $this->post('/transaction/', [
+            "value" => 100.00,
+            "from_user" => "07971257000130",
+            "to_user" => "00000000868"
+        ]);
+
+        $shopkeepersToUsersResponse->assertStatus(400);
+    }
+
+    public function transaction_from_user_to_shopkeepers(): void
     {
         $userToShopkeepersResponse = $this->post('/transaction/', [
             "value" => 100.00,
@@ -18,13 +29,5 @@ class UserTest extends TestCase
         ]);
 
         $userToShopkeepersResponse->assertStatus(200);
-
-        $shopkeepersToUsersResponse = $this->post('/transaction/', [
-            "value" => 100.00,
-            "from_user" => "07971257000130",
-            "to_user" => "00000000868"
-        ]);
-
-        $shopkeepersToUsersResponse->assertStatus(400);
     }
 }
