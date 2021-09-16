@@ -11,12 +11,20 @@ class UserTest extends TestCase
     /** @test  */
     public function only_users_can_transfer_money(): void
     {
-        $response = $this->post('/transaction/', [
+        $userToShopkeepersResponse = $this->post('/transaction/', [
             "value" => 100.00,
             "from_user" => "00000000868",
-            "to_user" => ""
+            "to_user" => "07971257000130"
         ]);
 
-        $response->assertStatus(200);
+        $userToShopkeepersResponse->assertStatus(200);
+
+        $shopkeepersToUsersResponse = $this->post('/transaction/', [
+            "value" => 100.00,
+            "from_user" => "07971257000130",
+            "to_user" => "00000000868"
+        ]);
+
+        $shopkeepersToUsersResponse->assertStatus(400);
     }
 }
