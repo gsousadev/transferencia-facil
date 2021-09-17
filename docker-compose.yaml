@@ -7,7 +7,7 @@ services:
     ports:
       - "4000:3306"
     command: --innodb-use-native-aio=0
-    volumes: 
+    volumes:
       - .docker/dbdata:/var/lib/mysql
     environment:
       MYSQL_DATABASE: transferencia-facil
@@ -22,11 +22,12 @@ services:
       - "5000:80"
     volumes:
       - ./:/usr/share/nginx
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
     depends_on:
       - mysql-app
     networks:
      - app-network
 
-networks: 
+networks:
   app-network:
     driver: bridge

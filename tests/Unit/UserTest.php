@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Models\Shopkeepers;
-use App\Models\User;
+use App\Domain\Models\Shopkeeper;
+use App\Domain\Models\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -23,7 +23,7 @@ class UserTest extends TestCase
 
     public function check_shopkeepers_columns_is_correct(): void
     {
-        $shopkeeper = (new Shopkeepers());
+        $shopkeeper = (new Shopkeeper());
 
         $expectedUserFillable = ['cnpj', 'trading_name'];
 

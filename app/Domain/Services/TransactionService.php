@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Services;
+namespace App\Domain\Services;
 
-use App\Exceptions\BusinessExceptions\ShopkeppersCannotSendMoneyException;
-use App\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
-use App\Models\Shopkeepers;
-use App\Repositories\TransactionRepositoryInterface;
-use App\Repositories\UserRepositoryInterface;
+use App\Domain\Exceptions\BusinessExceptions\ShopkeppersCannotSendMoneyException;
+use App\Domain\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
+use App\Domain\Models\Shopkeeper;
+use App\Domain\Repositories\TransactionRepositoryInterface;
+use App\Domain\Repositories\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class TransactionService
 {
-    private TransactionRepositoryInterface $transactionRepository;
-    private UserRepositoryInterface $userRepository;
+    private $transactionRepository;
+    private $userRepository;
 
     public function __construct(
         TransactionRepositoryInterface $transactionRepository,
@@ -26,7 +27,7 @@ class TransactionService
     {
         $fromUser = $this->userRepository->findByCPF(data_get($data, 'from_user'));
 
-        if ($fromUser->shopkeeper instanceof Shopkeepers) {
+        if ($fromUser->shopkeeper instanceof Shopkeeper) {
             throw new ShopkeppersCannotSendMoneyException();
         };
 
@@ -47,5 +48,10 @@ class TransactionService
         }
 
         return $this->transactionRepository->store($fromUser, $toUser, data_get($data, 'value'));
+    }
+
+    public function find(array $filters = []): Collection
+    {
+        return $this->transactionRepository->find($filters);
     }
 }

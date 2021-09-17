@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Repositories;
+declare(strict_types=1);
 
-use App\Exceptions\UserNotFoundException;
-use App\Models\User;
+namespace App\Domain\Repositories;
+
+use App\Domain\Exceptions\UserNotFoundException;
+use App\Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
 class UserORMRepository implements UserRepositoryInterface
@@ -13,7 +15,7 @@ class UserORMRepository implements UserRepositoryInterface
         $user = User::query()->where('cpf', $identifier)->first();
 
         if (!$user instanceof User) {
-            throw new UserNotFoundException;
+            throw new UserNotFoundException();
         }
 
         return $user;

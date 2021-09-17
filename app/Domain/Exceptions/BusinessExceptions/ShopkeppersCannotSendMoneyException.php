@@ -1,10 +1,12 @@
 <?php
-namespace App\Exceptions\BusinessExceptions;
+namespace App\Domain\Exceptions\BusinessExceptions;
 
 use App\Exceptions\BaseExceptions;
 
 class ShopkeppersCannotSendMoneyException extends BaseExceptions
 {
+    protected $code = 422;
+
     public function __construct()
     {
         parent::__construct(

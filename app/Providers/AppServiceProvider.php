@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Repositories\TransactionORMRepository;
-use App\Repositories\UserORMRepository;
-use App\Services\TransactionService;
+use App\Domain\Repositories\TransactionORMRepository;
+use App\Domain\Repositories\UserORMRepository;
+use App\Domain\Services\TransactionService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -1,9 +1,16 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
+
+namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/**
+ * @property User from
+ * @property User to
+ */
 
 class Transaction extends Model
 {

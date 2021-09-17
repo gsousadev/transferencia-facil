@@ -1,15 +1,20 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
+
+namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Shopkeepers extends Model
+/**
+ * @property User user
+ */
+
+class Wallet extends Model
 {
     protected $fillable = [
-        'cnpj',
-        'trading_name',
+        'balance'
     ];
 
     public function user(): BelongsTo

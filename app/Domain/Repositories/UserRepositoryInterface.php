@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Repositories;
+declare(strict_types=1);
 
-use App\Models\User;
+namespace App\Domain\Repositories;
+
+use App\Domain\Models\User;
 
 interface UserRepositoryInterface
 {

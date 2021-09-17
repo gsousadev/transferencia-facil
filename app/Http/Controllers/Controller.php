@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -12,8 +14,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function response($data = []): JsonResponse
+    public function response(array $data = [], string $message = ''): JsonResponse
     {
-        return response()->json($data);
+        return response()->json(['data' => $data, 'message' => $message]);
     }
 }

@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
+
+namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * @property Shopkeepers shopkeeper
+ * @property Shopkeeper shopkeeper
  */
 
 class User extends Model
@@ -24,6 +26,6 @@ class User extends Model
 
     public function shopkeeper(): HasOne
     {
-        return $this->hasOne(Shopkeepers::class);
+        return $this->hasOne(Shopkeeper::class);
     }
 }
