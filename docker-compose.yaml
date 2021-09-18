@@ -9,6 +9,7 @@ services:
     command: --innodb-use-native-aio=0
     volumes:
       - .docker/dbdata:/var/lib/mysql
+      - .docker/mysql/transferencia-facil-db:/var/lib/mysql/transferencia@002dfacil
     environment:
       MYSQL_DATABASE: transferencia-facil
       MYSQL_ROOT_PASSWORD: 1234
