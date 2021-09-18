@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Transfer\Models;
 
 use App\Domain\Transfer\Entities\ShopkeeperInterface;
+use Database\Factories\ShopkeeperFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Shopkeeper extends Model implements ShopkeeperInterface
 {
+    use HasFactory;
+
     protected $model = "shopkeepers";
     /** @var int */
     private $id;
@@ -30,7 +34,6 @@ class Shopkeeper extends Model implements ShopkeeperInterface
         'trading_name',
         'user_id'
     ];
-
 
     public function user(): BelongsTo
     {
@@ -55,5 +58,10 @@ class Shopkeeper extends Model implements ShopkeeperInterface
     public function getId(): int
     {
         return $this->id;
+    }
+
+    protected static function newFactory()
+    {
+        return ShopkeeperFactory::new();
     }
 }

@@ -6,18 +6,20 @@ namespace App\Domain\Transfer\Entities;
 
 use App\Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
 
-class Transaction extends Entity implements TransactionInterface
+class Transaction implements TransactionInterface
 {
+    protected $id;
     private $value;
-    private $from;
-    private $to;
+    private $from_id;
+    private $to_id;
     private $status;
 
-    public function __construct(UserInterface $from, UserInterface $to, float $value = 0)
+    public function __construct(int $from_id, int $to_id, float $value, string $status)
     {
-        $this->from = $from;
-        $this->to = $to;
+        $this->from_id = $from_id;
+        $this->to_id = $to_id;
         $this->value = $value;
+        $this->status = $status;
     }
 
     public function getValue(): float
@@ -30,14 +32,14 @@ class Transaction extends Entity implements TransactionInterface
         return $this->status;
     }
 
-    public function getFromUser(): UserInterface
+    public function getFromId(): int
     {
-        return $this->from;
+        return $this->from_id;
     }
 
-    public function getToUser(): UserInterface
+    public function getToId(): int
     {
-        return $this->to;
+        return $this->to_id;
     }
 
     public function throwIfFromUserAndToUserIsSame(): void
@@ -47,8 +49,9 @@ class Transaction extends Entity implements TransactionInterface
         }
     }
 
-    public function throwIfFromUserIsShopkeeper():void{
-
+    public function getId(): int
+    {
+        return $this->id;
     }
 }
 

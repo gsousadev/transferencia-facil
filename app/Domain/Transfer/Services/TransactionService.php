@@ -5,6 +5,7 @@ namespace App\Domain\Transfer\Services;
 use App\Domain\Transfer\Entities\ShopkeeperInterface;
 use App\Domain\Transfer\Entities\Transaction;
 use App\Domain\Transfer\Entities\UserInterface;
+use App\Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
 use App\Domain\Transfer\Exceptions\BusinessExceptions\ShopkeppersCannotSendMoneyException;
 use App\Domain\Transfer\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
 use App\Domain\Transfer\Exceptions\UserNotFoundException;
@@ -25,8 +26,7 @@ class TransactionService
         TransactionRepositoryInterface $transactionRepository,
         UserRepositoryInterface $userRepository,
         ShopkeeperRepositoryInterface $shopkeeperRepository
-    )
-    {
+    ) {
         $this->transactionRepository = $transactionRepository;
         $this->userRepository = $userRepository;
         $this->shopkeeperRepository = $shopkeeperRepository;
@@ -39,6 +39,8 @@ class TransactionService
         $value = data_get($data, 'value');
 
         $fromUser = $this->getUserByCpfOrThrow($fromUser);
+
+        dd($fromUser->id);
 
         $this->throwIfUserIsShopkeeper($fromUser);
 
@@ -62,9 +64,11 @@ class TransactionService
             $toUser = $this->userRepository->getById($toUser->getUserId());
         }
 
-        $transaction = new Transaction($fromUser, $toUser, $value);
+        if ($fromUser->getCpf() === $toUser->getCpf()) {
+            throw new SameUserReceivingAndPayingException();
+        }
 
-        $transaction->throwIfFromUserAndToUserIsSame();
+        $transaction = new Transaction($fromUser->getId(), $toUser->getId(), $value);
 
         return $this->transactionRepository->store($transaction);
     }
@@ -74,8 +78,8 @@ class TransactionService
         return $this->transactionRepository->find($filters);
     }
 
-    private function getUserByCpfOrThrow(string $cpf): ? UserInterface{
-
+    private function getUserByCpfOrThrow(string $cpf): ?UserInterface
+    {
         $user = $this->userRepository->getByCPF($cpf);
 
         if (!$user instanceof UserInterface) {
@@ -85,7 +89,7 @@ class TransactionService
         return $user;
     }
 
-    private function throwIfUserIsShopkeeper(UserInterface $fromUser):void
+    private function throwIfUserIsShopkeeper(UserInterface $fromUser): void
     {
         $shopkeeper = $this->shopkeeperRepository->getByFromUserId($fromUser->getId());
 

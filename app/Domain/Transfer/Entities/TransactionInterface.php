@@ -6,11 +6,13 @@ namespace App\Domain\Transfer\Entities;
 
 interface TransactionInterface
 {
+    public function getId(): int;
+
     public function getValue(): float;
 
     public function getStatus(): string;
 
-    public function getFromUser(): UserInterface;
+    public function getFromId(): int;
 
-    public function getToUser(): UserInterface;
+    public function getToId(): int;
 }

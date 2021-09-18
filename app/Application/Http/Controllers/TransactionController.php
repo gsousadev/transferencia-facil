@@ -6,11 +6,14 @@ namespace App\Application\Http\Controllers;
 
 use App\Application\Http\Requests\StoreTransactionRequest;
 use App\Domain\Transfer\Services\TransactionService;
+use App\Infrastructure\Transfer\Enumerator\TransactionEnumerator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+
+
     private $transactionService;
 
     public function __construct(TransactionService $transactionService)
@@ -22,7 +25,7 @@ class TransactionController extends Controller
     {
         $this->transactionService->store($request->only(['value', 'from_user', 'to_user']));
 
-        return $this->response([], 'Transação efetuada com sucesso!');
+        return $this->response([], TransactionEnumerator::SUCCESS_TRANSACTION_MESSAGE);
     }
 
     public function find(Request $request): JsonResponse

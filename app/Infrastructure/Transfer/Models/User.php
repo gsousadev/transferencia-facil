@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Transfer\Models;
 
 use App\Domain\Transfer\Entities\UserInterface;
+use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -14,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Model implements UserInterface
 {
+    use HasFactory;
+
     protected $model = "users";
 
     /** @var int */
@@ -68,5 +72,10 @@ class User extends Model implements UserInterface
     public function getId(): int
     {
         return $this->id;
+    }
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 }

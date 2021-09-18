@@ -2,7 +2,7 @@
 
 namespace App\Application\Http\Requests;
 
-use App\Domain\Exceptions\InvalidFormDataException;
+use App\Domain\Transfer\Exceptions\InvalidFormDataException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
