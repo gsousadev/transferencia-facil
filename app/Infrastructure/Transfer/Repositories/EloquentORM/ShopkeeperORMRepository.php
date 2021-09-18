@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Transfer\Repositories\EloquentORM;
+namespace Infrastructure\Transfer\Repositories\EloquentORM;
 
-use App\Domain\Transfer\Entities\Entity;
-use App\Domain\Transfer\Entities\ShopkeeperInterface;
-use App\Domain\Transfer\Repositories\ShopkeeperRepositoryInterface;
-use App\Infrastructure\Transfer\Models\Shopkeeper;
+use Domain\Transfer\Entities\Entity;
+use Domain\Transfer\Entities\ShopkeeperInterface;
+use Domain\Transfer\Repositories\ShopkeeperRepositoryInterface;
+use Infrastructure\Transfer\Models\Shopkeeper;
 
 class ShopkeeperORMRepository extends AbstractORMRepository implements ShopkeeperRepositoryInterface
 {

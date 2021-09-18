@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Application\Providers;
+namespace Application\Providers;
 
-use App\Domain\Transfer\Services\TransactionService;
-use App\Infrastructure\Transfer\Repositories\EloquentORM\ShopkeeperORMRepository;
-use App\Infrastructure\Transfer\Repositories\EloquentORM\TransactionORMRepository;
-use App\Infrastructure\Transfer\Repositories\EloquentORM\UserORMRepository;
+use Domain\Transfer\Services\TransactionService;
+use Infrastructure\Transfer\Repositories\EloquentORM\ShopkeeperORMRepository;
+use Infrastructure\Transfer\Repositories\EloquentORM\TransactionORMRepository;
+use Infrastructure\Transfer\Repositories\EloquentORM\UserORMRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

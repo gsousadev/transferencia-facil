@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Transfer\Repositories;
+namespace Domain\Transfer\Repositories;
 
-use App\Domain\Transfer\Entities\TransactionInterface;
+use Domain\Transfer\Entities\TransactionInterface;
 
 interface TransactionRepositoryInterface
 {

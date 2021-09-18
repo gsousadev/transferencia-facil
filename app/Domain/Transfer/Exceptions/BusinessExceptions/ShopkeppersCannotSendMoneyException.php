@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Transfer\Exceptions\BusinessExceptions;
+namespace Domain\Transfer\Exceptions\BusinessExceptions;
 
-use App\Domain\Transfer\Exceptions\BaseExceptions;
+use Domain\Transfer\Exceptions\BaseExceptions;
 
 class ShopkeppersCannotSendMoneyException extends BaseExceptions
 {

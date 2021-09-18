@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Transfer\Repositories\EloquentORM;
+namespace Infrastructure\Transfer\Repositories\EloquentORM;
 
-use App\Domain\Transfer\Entities\ShopkeeperInterface;
-use App\Domain\Transfer\Entities\TransactionInterface;
-use App\Domain\Transfer\Repositories\TransactionRepositoryInterface;
-use App\Infrastructure\Transfer\Models\Transaction;
+use Domain\Transfer\Entities\ShopkeeperInterface;
+use Domain\Transfer\Entities\TransactionInterface;
+use Domain\Transfer\Repositories\TransactionRepositoryInterface;
+use Infrastructure\Transfer\Models\Transaction;
 use Carbon\Carbon;
 
 class TransactionORMRepository extends AbstractORMRepository implements TransactionRepositoryInterface

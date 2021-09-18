@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Transfer\Enumerator;
+namespace Infrastructure\Transfer\Enumerator;
 
 class TransactionEnumerator
 {

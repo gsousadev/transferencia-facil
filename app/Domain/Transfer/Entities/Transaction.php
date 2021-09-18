@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Transfer\Entities;
+namespace Domain\Transfer\Entities;
 
-use App\Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
+use Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
 
 class Transaction implements TransactionInterface
 {

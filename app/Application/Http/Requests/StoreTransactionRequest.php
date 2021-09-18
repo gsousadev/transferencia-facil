@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Http\Requests;
+namespace Application\Http\Requests;
 
 class StoreTransactionRequest extends AbstractRequest
 {

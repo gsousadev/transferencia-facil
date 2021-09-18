@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Domain\Transfer\Services;
+namespace Domain\Transfer\Services;
 
-use App\Domain\Transfer\Entities\ShopkeeperInterface;
-use App\Domain\Transfer\Entities\Transaction;
-use App\Domain\Transfer\Entities\UserInterface;
-use App\Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
-use App\Domain\Transfer\Exceptions\BusinessExceptions\ShopkeppersCannotSendMoneyException;
-use App\Domain\Transfer\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
-use App\Domain\Transfer\Exceptions\UserNotFoundException;
-use App\Domain\Transfer\Repositories\ShopkeeperRepositoryInterface;
-use App\Domain\Transfer\Repositories\TransactionRepositoryInterface;
-use App\Domain\Transfer\Repositories\UserRepositoryInterface;
+use Domain\Transfer\Entities\ShopkeeperInterface;
+use Domain\Transfer\Entities\Transaction;
+use Domain\Transfer\Entities\UserInterface;
+use Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
+use Domain\Transfer\Exceptions\BusinessExceptions\ShopkeppersCannotSendMoneyException;
+use Domain\Transfer\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
+use Domain\Transfer\Exceptions\UserNotFoundException;
+use Domain\Transfer\Repositories\ShopkeeperRepositoryInterface;
+use Domain\Transfer\Repositories\TransactionRepositoryInterface;
+use Domain\Transfer\Repositories\UserRepositoryInterface;
 
 class TransactionService
 {
@@ -39,8 +39,6 @@ class TransactionService
         $value = data_get($data, 'value');
 
         $fromUser = $this->getUserByCpfOrThrow($fromUser);
-
-        dd($fromUser->id);
 
         $this->throwIfUserIsShopkeeper($fromUser);
 

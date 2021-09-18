@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Transfer\Models;
+namespace Infrastructure\Transfer\Models;
 
-use App\Domain\Transfer\Entities\ShopkeeperInterface;
+use Domain\Transfer\Entities\ShopkeeperInterface;
 use Database\Factories\ShopkeeperFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

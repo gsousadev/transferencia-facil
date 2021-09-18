@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Http\Controllers;
+namespace Application\Http\Controllers;
 
-use App\Application\Http\Requests\StoreTransactionRequest;
-use App\Domain\Transfer\Services\TransactionService;
-use App\Infrastructure\Transfer\Enumerator\TransactionEnumerator;
+use Application\Http\Requests\StoreTransactionRequest;
+use Domain\Transfer\Services\TransactionService;
+use Infrastructure\Transfer\Enumerator\TransactionEnumerator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-
-
     private $transactionService;
 
     public function __construct(TransactionService $transactionService)

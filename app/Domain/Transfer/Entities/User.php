@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Transfer\Entities;
+namespace Domain\Transfer\Entities;
 
 class User implements UserInterface
 {

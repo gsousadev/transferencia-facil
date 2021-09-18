@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Providers;
+namespace Application\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    //protected $namespace = 'App\\Http\\Controllers';
+    //protected $namespace = '\Http\\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

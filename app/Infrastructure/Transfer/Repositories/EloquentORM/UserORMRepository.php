@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Transfer\Repositories\EloquentORM;
+namespace Infrastructure\Transfer\Repositories\EloquentORM;
 
-use App\Domain\Transfer\Entities\UserInterface;
+use Domain\Transfer\Entities\UserInterface;
 
-use App\Domain\Transfer\Repositories\UserRepositoryInterface;
-use App\Infrastructure\Transfer\Models\User;
+use Domain\Transfer\Repositories\UserRepositoryInterface;
+use Infrastructure\Transfer\Models\User;
 
 class UserORMRepository extends AbstractORMRepository implements UserRepositoryInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Transfer\Models;
+namespace Infrastructure\Transfer\Models;
 
-use App\Domain\Transfer\Entities\WalletInterface;
+use Domain\Transfer\Entities\WalletInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

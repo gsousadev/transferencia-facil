@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Transfer\Models;
+namespace Infrastructure\Transfer\Models;
 
-use App\Domain\Transfer\Entities\TransactionInterface;
-use App\Domain\Transfer\Entities\UserInterface;
+use Domain\Transfer\Entities\TransactionInterface;
+use Domain\Transfer\Entities\UserInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

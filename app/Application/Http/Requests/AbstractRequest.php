@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\Http\Requests;
+namespace Application\Http\Requests;
 
-use App\Domain\Transfer\Exceptions\InvalidFormDataException;
+use Domain\Transfer\Exceptions\InvalidFormDataException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 

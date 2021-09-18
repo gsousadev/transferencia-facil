@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Transfer\Repositories;
+namespace Domain\Transfer\Repositories;
 
 interface AbstractRepositoryInterface
 {
