@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Wallet extends Model
 {
+
+    protected $model = "wallets";
+
     protected $fillable = [
         'balance'
     ];

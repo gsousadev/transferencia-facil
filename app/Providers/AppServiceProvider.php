@@ -16,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->publishes([
+            __DIR__ . '/pt-br' => resource_path('lang/pt-br'),
+        ], 'laravel-pt-br-localization');
     }
 
     /**

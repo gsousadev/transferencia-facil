@@ -14,7 +14,7 @@ class InvalidFormDataException extends BaseExceptions
     {
         parent::__construct(
             'invalidData',
-            'Dados incorretos!',
+            'Dados incorretos. Verifique os erros encontrados',
             $errors
         );
     }

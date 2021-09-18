@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Shopkeeper extends Model
 {
+    protected $model = "shopkeepers";
 
     protected $fillable = [
         'cnpj',

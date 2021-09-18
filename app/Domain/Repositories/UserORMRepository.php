@@ -15,7 +15,7 @@ class UserORMRepository implements UserRepositoryInterface
         $user = User::query()->where('cpf', $identifier)->first();
 
         if (!$user instanceof User) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException('cpf', $identifier);
         }
 
         return $user;

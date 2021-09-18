@@ -21,12 +21,16 @@ abstract class BaseExceptions extends Exception
 
     public function render(): JsonResponse
     {
-        return response()->json(
-            [
-                'shortMessage' => $this->shortMessage,
-                'message' => $this->message,
-                'errors' => $this->errors
-            ], $this->getCode()
-        );
+
+        $responseData =  [
+            'shortMessage' => $this->shortMessage,
+            'message' => $this->message
+        ];
+
+        if(!empty($this->errors)){
+            $responseData['errors'] = $this->errors;
+        }
+
+        return response()->json($responseData, $this->getCode());
     }
 }

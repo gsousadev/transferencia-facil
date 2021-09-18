@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
+    protected $model = "transactions";
+
     protected $fillable = [
         'value',
         'status',

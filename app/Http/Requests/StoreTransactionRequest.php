@@ -12,4 +12,11 @@ class StoreTransactionRequest extends AbstractRequest
             'to_user' => 'required|string|min:11|max:14'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'from_user.size' => 'Apenas CPFs podem fazer transferencias para outros usuários'
+        ];
+    }
 }

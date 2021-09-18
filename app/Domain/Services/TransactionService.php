@@ -2,6 +2,7 @@
 
 namespace App\Domain\Services;
 
+use App\Domain\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
 use App\Domain\Exceptions\BusinessExceptions\ShopkeppersCannotSendMoneyException;
 use App\Domain\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
 use App\Domain\Models\Shopkeeper;
@@ -25,7 +26,14 @@ class TransactionService
 
     public function store(array $data = []): bool
     {
-        $fromUser = $this->userRepository->findByCPF(data_get($data, 'from_user'));
+        $toUser = data_get($data, 'to_user');
+        $fromUser = data_get($data, 'from_user');
+
+        if ($toUser === $fromUser) {
+            throw new SameUserReceivingAndPayingException();
+        }
+
+        $fromUser = $this->userRepository->findByCPF($fromUser);
 
         if ($fromUser->shopkeeper instanceof Shopkeeper) {
             throw new ShopkeppersCannotSendMoneyException();
