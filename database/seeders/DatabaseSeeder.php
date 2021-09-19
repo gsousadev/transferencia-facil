@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Infrastructure\Transfer\Models\Shopkeeper;
-use App\Infrastructure\Transfer\Models\User;
+use Infrastructure\Transfer\Models\Shopkeeper;
+use Infrastructure\Transfer\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

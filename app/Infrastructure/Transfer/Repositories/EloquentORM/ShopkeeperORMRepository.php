@@ -4,31 +4,13 @@ declare(strict_types=1);
 
 namespace Infrastructure\Transfer\Repositories\EloquentORM;
 
-use Domain\Transfer\Entities\Entity;
-use Domain\Transfer\Entities\ShopkeeperInterface;
-use Domain\Transfer\Repositories\ShopkeeperRepositoryInterface;
-use Infrastructure\Transfer\Models\Shopkeeper;
+use Infrastructure\Transfer\Models\EloquentORM\Shopkeeper;
+use Infrastructure\Transfer\Repositories\ShopkeeperRepositoryInterface;
 
 class ShopkeeperORMRepository extends AbstractORMRepository implements ShopkeeperRepositoryInterface
 {
-    public function getByCNPJ(string $cnpj): ?ShopkeeperInterface
+    public function __construct()
     {
-        $shopkeeper = Shopkeeper::query()->where('cnpj', $cnpj) ->first();
-
-        return $shopkeeper instanceof ShopkeeperInterface ? $shopkeeper : null;
-    }
-
-    public function getByFromUserId(int $id): ?ShopkeeperInterface
-    {
-        $shopkeeper = Shopkeeper::query()->find($id);
-
-        return $shopkeeper instanceof ShopkeeperInterface ? $shopkeeper : null;
-    }
-
-    public function getById(int $id): ?ShopkeeperInterface
-    {
-        $shopkeeper = Shopkeeper::query()->find($id);
-
-        return $shopkeeper instanceof ShopkeeperInterface ? $shopkeeper : null;
+        $this->model = new Shopkeeper();
     }
 }

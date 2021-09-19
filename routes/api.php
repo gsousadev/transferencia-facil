@@ -1,6 +1,6 @@
 <?php
 
-use App\Application\Http\Controllers\TransactionController;
+use Application\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*

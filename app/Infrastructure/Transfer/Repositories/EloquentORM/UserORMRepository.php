@@ -4,24 +4,19 @@ declare(strict_types=1);
 
 namespace Infrastructure\Transfer\Repositories\EloquentORM;
 
-use Domain\Transfer\Entities\UserInterface;
+use Infrastructure\Transfer\Models\EloquentORM\User;
+use Infrastructure\Transfer\Models\UserInterface;
+use Infrastructure\Transfer\Repositories\UserRepositoryInterface;
 
-use Domain\Transfer\Repositories\UserRepositoryInterface;
-use Infrastructure\Transfer\Models\User;
-
-class UserORMRepository extends AbstractORMRepository implements UserRepositoryInterface
+class UserORMRepository extends AbstractORMRepository  implements UserRepositoryInterface
 {
-    public function getByCPF(string $cpf): ?UserInterface
+    public function __construct()
     {
-        $user = User::query()->where('cpf', $cpf)->first();
-
-        return $user instanceof UserInterface ? $user : null;
+        $this->model = new User();
     }
 
-    public function getById(int $id): ?UserInterface
+    public function getByCPF(string $cpf): ?UserInterface
     {
-        $user = User::query()->find($id);
-
-        return $user instanceof UserInterface ? $user : null;
+        // TODO: Implement getByCPF() method.
     }
 }

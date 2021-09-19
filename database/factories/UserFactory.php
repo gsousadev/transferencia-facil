@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Infrastructure\Transfer\Models\User;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Infrastructure\Transfer\Models\EloquentORM\User;
 
 class UserFactory extends Factory
 {

@@ -4,37 +4,45 @@ declare(strict_types=1);
 
 namespace Domain\Transfer\Entities;
 
-class Shopkeeper implements ShopkeeperInterface
-{
-    protected $id;
-    private $cnpj;
-    private $trading_name;
-    private $user_id;
+use Infrastructure\Transfer\Models\EntityAbstract;
+use Infrastructure\Transfer\Models\ShopkeeperInterface;
 
-    public function __construct(int $user_id ,string $cnpj, string $trading_name)
+class Shopkeeper extends EntityAbstract implements ShopkeeperInterface
+{
+    /** @var string */
+    private $cnpj;
+    /** @var string */
+    private $tradingName;
+    /** @var int */
+    private $userId;
+
+    public function getCnpj(): string
     {
-        $this->cnpj = $cnpj;
-        $this->trading_name = $trading_name;
-        $this->user_id = $user_id;
+        return $this->cnpj;
     }
 
-    public function getCNPJ(): string
+    public function setCnpj(string $cnpj): void
     {
-        return  $this->cnpj;
+        $this->cnpj = $cnpj;
     }
 
     public function getTradingName(): string
     {
-        return $this->trading_name;
+        return $this->tradingName;
+    }
+
+    public function setTradingName(string $tradingName): void
+    {
+        $this->tradingName = $tradingName;
     }
 
     public function getUserId(): int
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
-    public function getId(): int
+    public function setUserId(int $userId): void
     {
-        return $this->id;
+        $this->userId = $userId;
     }
 }

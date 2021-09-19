@@ -4,27 +4,48 @@ declare(strict_types=1);
 
 namespace Domain\Transfer\Entities;
 
-use Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
+use Infrastructure\Transfer\Models\EntityAbstract;
+use Infrastructure\Transfer\Models\TransactionInterface;
 
-class Transaction implements TransactionInterface
+class Transaction extends EntityAbstract implements TransactionInterface
 {
-    protected $id;
+    /** @var float  */
     private $value;
-    private $from_id;
-    private $to_id;
+    /** @var int  */
+    private $fromId;
+    /** @var int  */
+    private $toId;
+    /** @var string  */
     private $status;
-
-    public function __construct(int $from_id, int $to_id, float $value, string $status)
-    {
-        $this->from_id = $from_id;
-        $this->to_id = $to_id;
-        $this->value = $value;
-        $this->status = $status;
-    }
 
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    public function setValue(float $value): void
+    {
+        $this->value = $value;
+    }
+
+    public function getFromId(): int
+    {
+        return $this->fromId;
+    }
+
+    public function setFromId(int $fromId): void
+    {
+        $this->fromId = $fromId;
+    }
+
+    public function getToId(): int
+    {
+        return $this->toId;
+    }
+
+    public function setToId(int $toId): void
+    {
+        $this->toId = $toId;
     }
 
     public function getStatus(): string
@@ -32,26 +53,9 @@ class Transaction implements TransactionInterface
         return $this->status;
     }
 
-    public function getFromId(): int
+    public function setStatus(string $status): void
     {
-        return $this->from_id;
-    }
-
-    public function getToId(): int
-    {
-        return $this->to_id;
-    }
-
-    public function throwIfFromUserAndToUserIsSame(): void
-    {
-        if ($this->from->getCpf() === $this->to->getCpf()) {
-            throw new SameUserReceivingAndPayingException();
-        }
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
+        $this->status = $status;
     }
 }
 

@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Infrastructure\Transfer\Models\Shopkeeper;
-use App\Infrastructure\Transfer\Models\User;
+use Infrastructure\Transfer\Models\Shopkeeper;
+use Infrastructure\Transfer\Models\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase

@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Application\Http\Requests\StoreTransactionRequest;
-use App\Infrastructure\Transfer\Enumerator\TransactionEnumerator;
-use App\Infrastructure\Transfer\Models\Shopkeeper;
-use App\Infrastructure\Transfer\Models\User;
+use Application\Http\Requests\StoreTransactionRequest;
+use Infrastructure\Transfer\Enumerator\TransactionEnumerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\TestResponse;
+use Infrastructure\Transfer\Models\EloquentORM\Shopkeeper;
+use Infrastructure\Transfer\Models\EloquentORM\User;
 use Tests\TestCase;
 
 class TransactionTest extends TestCase
@@ -87,6 +87,8 @@ class TransactionTest extends TestCase
 
         return [$commonUser, $shopkeeperUser];
     }
+
+
 
     private function makeTransaction(string $from, string $to, float $value)
     {

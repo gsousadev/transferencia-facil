@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Infrastructure\Transfer\Models\Shopkeeper;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Infrastructure\Transfer\Models\EloquentORM\Shopkeeper;
 
 class ShopkeeperFactory extends Factory
 {
