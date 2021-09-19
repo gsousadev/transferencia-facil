@@ -3,10 +3,10 @@
 namespace Domain\Transfer\Services;
 
 use Domain\Transfer\Entities\Shopkeeper;
-use Domain\Transfer\Entities\Transaction;
 use Domain\Transfer\Entities\User;
 use Domain\Transfer\Exceptions\BusinessExceptions\SameUserReceivingAndPayingException;
 use Domain\Transfer\Exceptions\BusinessExceptions\ShopkeppersCannotSendMoneyException;
+use Domain\Transfer\Exceptions\BusinessExceptions\TransactionValueInvalidException;
 use Domain\Transfer\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
 use Domain\Transfer\Exceptions\UserNotFoundException;
 use Domain\Transfer\Repositories\ShopkeeperRepository;
@@ -17,7 +17,7 @@ class TransactionService
 {
     /** @var TransactionRepository */
     private $transactionRepository;
-    /** @var UserRepository*/
+    /** @var UserRepository */
     private $userRepository;
     /** @var ShopkeeperRepository */
     private $shopkeeperRepository;
@@ -34,7 +34,7 @@ class TransactionService
 
     public function store(array $data = []): bool
     {
-        $fromUserIdentification = data_get($data, 'from_user');
+        $fromUserIdentification = $data['from_user'] ?? '';
         $countFromUser = strlen($fromUserIdentification);
 
         if ($countFromUser != 11) {
@@ -45,38 +45,44 @@ class TransactionService
 
         $this->throwIfUserIsShopkeeper($fromUser);
 
-        dd('teste');
-
-        $toUserIdentification = data_get($data, 'to_user');
+        $toUserIdentification = $data['to_user'] ?? '';
         $countToUser = strlen($toUserIdentification);
 
-        $value = data_get($data, 'value');
+        $value = $data['value'] ?? 0;
 
         if ($countToUser != 14 && $countToUser != 11) {
             throw new UserIncorrectIdentifyException();
         }
 
         if ($countToUser === 11) {
-            $toUser = $this->getUserByCpfOrThrow($toUser);
-        }
+            $toUser = $this->getUserByCpfOrThrow($toUserIdentification);
 
-        if ($countToUser === 14) {
-            $toUser = $this->shopkeeperRepository->getByCNPJ($toUser);
+            if (!$toUser instanceof User) {
+                throw new UserNotFoundException('CPF', $toUserIdentification);
+            }
+        } else {
+            $toUser = $this->shopkeeperRepository->getByCnpj($toUserIdentification);
 
             if (!$toUser instanceof Shopkeeper) {
                 throw new UserNotFoundException('CNPJ', $toUser->getCnpj());
             }
 
             $toUser = $this->userRepository->getById($toUser->getUserId());
+
+            if (!$toUser instanceof User) {
+                throw new UserNotFoundException('CPF', $toUserIdentification);
+            }
         }
 
         if ($fromUser->getCpf() === $toUser->getCpf()) {
             throw new SameUserReceivingAndPayingException();
         }
 
-        $transaction = new Transaction();
+        if ($value <= 0 && !is_float($value)) {
+            throw new TransactionValueInvalidException();
+        }
 
-        return $this->transactionRepository->store($transaction);
+        return $this->transactionRepository->store($fromUser, $toUser, $value);
     }
 
     public function find(array $filters = []): array

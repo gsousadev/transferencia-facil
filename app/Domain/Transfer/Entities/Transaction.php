@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Transfer\Entities;
 
+use Domain\Transfer\Enumerators\TransactionEnumerator;
 use Infrastructure\Transfer\Models\EntityAbstract;
 use Infrastructure\Transfer\Models\TransactionInterface;
 
@@ -56,6 +57,15 @@ class Transaction extends EntityAbstract implements TransactionInterface
     public function setStatus(string $status): void
     {
         $this->status = $status;
+    }
+
+    public function toSave(): array{
+        return [
+            'from_id' => $this->fromId,
+            'to_id' => $this->toId,
+            'value' => $this->value,
+            'status' => TransactionEnumerator::STATUS_PROCESSING
+        ];
     }
 }
 

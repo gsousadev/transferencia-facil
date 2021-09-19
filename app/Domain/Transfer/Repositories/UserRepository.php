@@ -18,7 +18,7 @@ class UserRepository extends AbstractRepository
     {
         $this->externalRepository = $userRepository;
     }
-
+    /** @return User */
     public function getEntity(): User
     {
         return new User();
@@ -35,8 +35,8 @@ class UserRepository extends AbstractRepository
     {
         $entity = parent::filledEntity();
 
-        if ($entity === null){
-            return $entity;
+        if (!$entity instanceof User) {
+            return null;
         }
 
         $entity->setCpf($attributes['cpf']);

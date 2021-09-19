@@ -19,7 +19,7 @@ class ShopkeeperRepository extends AbstractRepository
     {
         $this->externalRepository = $repository;
     }
-
+    /** @return Shopkeeper */
     public function getEntity(): EntityInterface
     {
         return new Shopkeeper();
@@ -34,7 +34,9 @@ class ShopkeeperRepository extends AbstractRepository
 
     public function getByCnpj(string $cnpj): ?ShopkeeperInterface
     {
-        // TODO: Implement getByCNPJ() method.
+        $attributes = $this->externalRepository->findOneBy('cnpj', $cnpj);
+
+        return $this->filledEntity($attributes);
     }
 
     public function filledEntity(array $attributes = []): ?Shopkeeper
@@ -42,10 +44,11 @@ class ShopkeeperRepository extends AbstractRepository
         $entity = parent::filledEntity();
 
         if (!$entity instanceof Shopkeeper){
-            return $entity;
+            return null;
         }
 
-        $entity->setCnpj($attributes['id']);
+        $entity->setUserId($attributes['user_id']);
+        $entity->setCnpj($attributes['cnpj']);
         $entity->setTradingName($attributes['trading_name']);
 
         return $entity;

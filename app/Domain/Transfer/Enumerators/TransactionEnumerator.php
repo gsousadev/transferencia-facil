@@ -1,8 +1,10 @@
 <?php
 
-namespace Infrastructure\Transfer\Enumerator;
+namespace Domain\Transfer\Enumerators;
 
 class TransactionEnumerator
 {
-    public const SUCCESS_TRANSACTION_MESSAGE = 'Transação efetuada com sucesso!';
+    public const STATUS_PROCESSING = "PROCESSANDO";
+    public const STATUS_CANCELED = "CANCELADA";
+    public const STATUS_APPROVED = "APROVADA";
 }

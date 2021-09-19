@@ -14,7 +14,9 @@ abstract class AbstractORMRepository implements AbstractORMRepositoryInterface
 
     public function getById(int $id): ?array
     {
-        return $this->model::query()->find($id)->toArray();
+        $model = $this->model::query()->find($id);
+
+        return $model === null ? [] : $model->toArray();
     }
 
     public function find(array $filters = []): ?array
@@ -48,28 +50,35 @@ abstract class AbstractORMRepository implements AbstractORMRepositoryInterface
             ->toArray();
     }
 
-    public function findBy(string $key, string $value): array
+    public function findBy(string $key, string $value): ?array
     {
         return $this->model::query()->where($key, $value)->get()->toArray();
     }
 
     public function findOneBy(string $key, string $value): array
     {
-        return $this->model::query()->where($key, $value)->first()->toArray();
+        $model = $this->model::query()->where($key, $value)->first();
+
+        return $model === null ? [] : $model->toArray();
     }
 
-    public function store(array $attributes = []): bool
+    public function store(array $attributes = []): array
     {
         $this->model->fill($attributes);
-        return $this->model->save();
+
+        $this->model->save();
+
+        return $this->model->refresh()->toArray();
     }
 
-    public function edit(int $id, array $attributes = []): bool
+    public function edit(int $id, array $attributes = []): array
     {
         $model = $this->model::query()->find($id);
 
         $model->fill($attributes);
 
-        return $model->save();
+        $model->save();
+
+        return $this->model->refresh()->toArray();
     }
 }

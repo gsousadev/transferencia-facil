@@ -6,15 +6,18 @@ namespace Domain\Transfer\Exceptions\BusinessExceptions;
 
 use Domain\Transfer\Exceptions\BaseExceptions;
 
-class SameUserReceivingAndPayingException extends BaseExceptions
+class TransactionValueInvalidException extends BaseExceptions
 {
     protected $code = 422;
+
+    public const SHORT_MESSAGE = 'TransactionValueInvalid';
+    public const DESCRIPTION_MESSAGE = 'Valor de transferência invalido';
 
     public function __construct()
     {
         parent::__construct(
-            'SameUserReceivingAndPaying',
-            'Transação Invalida. Pagador e Recebedor não podem ser iguais'
+            self::SHORT_MESSAGE,
+            self::DESCRIPTION_MESSAGE
         );
     }
 }

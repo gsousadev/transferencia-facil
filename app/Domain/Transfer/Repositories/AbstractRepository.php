@@ -10,10 +10,17 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
 {
     protected $externalRepository;
 
+    public function getById(int $id)
+    {
+        $attributes = $this->externalRepository->getById($id);
+
+        return $this->filledEntity($attributes);
+    }
+
     public function filledEntity(array $attributes = [])
     {
         if (empty($attributes)) {
-            return null;
+            return $attributes;
         }
 
         $entity = $this->getEntity();

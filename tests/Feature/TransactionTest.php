@@ -2,10 +2,11 @@
 
 namespace Tests\Feature;
 
+use Application\Http\Controllers\TransactionController;
 use Application\Http\Requests\StoreTransactionRequest;
-use Infrastructure\Transfer\Enumerator\TransactionEnumerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\TestResponse;
+use Infrastructure\Transfer\Enumerator\TransactionEnumerator;
 use Infrastructure\Transfer\Models\EloquentORM\Shopkeeper;
 use Infrastructure\Transfer\Models\EloquentORM\User;
 use Tests\TestCase;
@@ -53,7 +54,7 @@ class TransactionTest extends TestCase
 
         $response->assertStatus(200);
 
-        $this->assertEquals(TransactionEnumerator::SUCCESS_TRANSACTION_MESSAGE, $responseMessage);
+        $this->assertEquals(TransactionController::SUCCESS_TRANSACTION_MESSAGE, $responseMessage);
 
         DB::rollBack();
     }
@@ -62,19 +63,19 @@ class TransactionTest extends TestCase
     {
         $commonUser = User::factory()
             ->create(
-            [
-                'name' => 'Guilherme',
-                'cpf' => self::VALID_CPF
-            ]
-        );
+                [
+                    'name' => 'Guilherme',
+                    'cpf' => self::VALID_CPF
+                ]
+            );
 
         $shopkeeperUser = User::factory()
             ->create(
-            [
-                'name' => 'Maria',
-                'cpf' => self::VALID_CPF_2
-            ]
-        );
+                [
+                    'name' => 'Maria',
+                    'cpf' => self::VALID_CPF_2
+                ]
+            );
 
         Shopkeeper::factory()
             ->for($shopkeeperUser)
@@ -87,7 +88,6 @@ class TransactionTest extends TestCase
 
         return [$commonUser, $shopkeeperUser];
     }
-
 
 
     private function makeTransaction(string $from, string $to, float $value)
