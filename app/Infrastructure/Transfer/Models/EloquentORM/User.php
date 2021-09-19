@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * @property Shopkeeper shopkeeper
  */
-
 class User extends Model
 {
     use HasFactory;
@@ -30,6 +29,11 @@ class User extends Model
     public function shopkeeper(): HasOne
     {
         return $this->hasOne(Shopkeeper::class);
+    }
+
+    public function wallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class);
     }
 
     protected static function newFactory()

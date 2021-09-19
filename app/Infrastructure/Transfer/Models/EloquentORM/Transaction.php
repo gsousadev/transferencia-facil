@@ -20,7 +20,8 @@ class Transaction extends Model
         'value',
         'status',
         'from_user_id',
-        'to_user_id'
+        'to_user_id',
+        'reason_cancellation'
     ];
 
     public function from(): BelongsTo

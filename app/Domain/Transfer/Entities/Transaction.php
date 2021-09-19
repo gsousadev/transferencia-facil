@@ -79,7 +79,7 @@ class Transaction extends EntityAbstract implements TransactionInterface
             'to_user_id' => $this->toId,
             'value' => $this->value,
             'reason_cancellation' => $this->reasonCancellation,
-            'status' => TransactionEnumerator::STATUS_PROCESSING
+            'status' => $this->status
         ];
     }
 }

@@ -43,12 +43,18 @@ class TransactionRepository extends AbstractRepository
         $transaction->setFromId($fromUser->getId());
         $transaction->setToId($toUser->getId());
         $transaction->setValue($value);
+        $transaction->setStatus(TransactionEnumerator::STATUS_PROCESSING);
 
         $return = $this->externalRepository->store($transaction->toArray());
 
         $transaction->setId($return['id']);
 
         return $transaction;
+    }
+
+    public function find(array $filters = []): ?array
+    {
+        return $this->externalRepository->find($filters);
     }
 
     public function cancelTransaction(Transaction $transaction, string $reason): Transaction
@@ -83,10 +89,9 @@ class TransactionRepository extends AbstractRepository
         } catch (\Throwable $throwable) {
             throw new SendNotificationServiceException($throwable->getCode(), $throwable->getMessage());
         }
-
     }
 
-    public function changeStatusToSuccess(Transaction $transaction)
+    public function changeStatusToSuccess(Transaction $transaction): Transaction
     {
         $result = $this->externalRepository->edit(
             $transaction->getId(),

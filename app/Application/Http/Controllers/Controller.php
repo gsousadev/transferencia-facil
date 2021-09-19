@@ -16,6 +16,16 @@ class Controller extends BaseController
 
     public function response(array $data = [], string $message = ''): JsonResponse
     {
-        return response()->json(['data' => $data, 'message' => $message]);
+        $response = [];
+
+        if (!empty($data)) {
+            $response['data'] = $data;
+        }
+
+        if (!empty($message)) {
+            $response['message'] = $message;
+        }
+
+        return response()->json($response);
     }
 }

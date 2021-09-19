@@ -25,9 +25,9 @@ class ShopkeeperRepository extends AbstractRepository
         return new Shopkeeper();
     }
 
-    public function getByFromUserId(int $id): ?ShopkeeperInterface
+    public function getByUserId(int $id): ?ShopkeeperInterface
     {
-        $attributes = $this->externalRepository->findBy('user_id', (string) $id);
+        $attributes = $this->externalRepository->findOneBy('user_id', (string) $id);
 
         return $this->filledEntity($attributes);
     }

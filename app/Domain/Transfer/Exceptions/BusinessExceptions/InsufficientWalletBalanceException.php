@@ -8,7 +8,7 @@ use Domain\Transfer\Exceptions\BaseExceptions;
 
 class InsufficientWalletBalanceException extends BaseExceptions
 {
-    protected $code = 404;
+    protected $code = 422;
     public const SHORT_MESSAGE = 'InsufficientWalletBalance';
     public const DESCRIPTION_MESSAGE = 'Saldo em conta insulficiente. A transferência será cancelada';
 

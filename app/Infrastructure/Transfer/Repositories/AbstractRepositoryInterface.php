@@ -10,5 +10,7 @@ interface AbstractRepositoryInterface
 
     public function getEntity();
 
+    public function find();
+
     public function filledEntity();
 }

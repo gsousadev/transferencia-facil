@@ -29,4 +29,9 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
 
         return $entity;
     }
+
+    public function find(array $filters = []): ?array
+    {
+        return $this->externalRepository->find($filters);
+    }
 }

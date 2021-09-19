@@ -29,7 +29,7 @@ class TransactionController extends Controller
 
     public function find(Request $request): JsonResponse
     {
-        $transactions = $this->transactionService->find($request->only(['value', 'from_user', 'to_user']));
+        $transactions = $this->transactionService->find($request->only(['initial_date', 'final_date']));
 
         return $this->response($transactions);
     }

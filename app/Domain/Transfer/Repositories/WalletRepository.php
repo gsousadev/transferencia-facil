@@ -6,6 +6,7 @@ namespace Domain\Transfer\Repositories;
 
 use Domain\Transfer\Entities\Transaction;
 use Domain\Transfer\Entities\Wallet;
+use Domain\Transfer\Enumerators\WalletEnumerator;
 use Infrastructure\Transfer\Models\EntityInterface;
 use Infrastructure\Transfer\Repositories\EloquentORM\WalletORMRepository;
 use Infrastructure\Transfer\Repositories\WalletRepositoryInterface;
@@ -19,15 +20,16 @@ class WalletRepository extends AbstractRepository
     {
         $this->externalRepository = $repository;
     }
+
     /** @return Wallet */
     public function getEntity(): EntityInterface
     {
         return new Wallet();
     }
 
-    public function getByFromUserId(int $id): ? Wallet
+    public function getByFromUserId(int $id): ?Wallet
     {
-        $attributes = $this->externalRepository->findOneBy('user_id', (string) $id);
+        $attributes = $this->externalRepository->findOneBy('user_id', (string)$id);
 
         $entity = parent::filledEntity($attributes);
 
@@ -41,38 +43,53 @@ class WalletRepository extends AbstractRepository
         return $entity;
     }
 
-    public function makeTransactionBetweenWallest(Transaction $transaction): void
+    public function makeTransactionBetweenWallets(Transaction $transaction): void
     {
-        $fromWalletAttribures = $this->externalRepository->findOneBy('user_id', (string) $transaction->getFromId());
+        $fromWallet = $this->updateBalanceByTransaction($transaction, WalletEnumerator::OPERATION_DEBIT);
 
-        $fromWallet = $this->getEntity();
+        $this->persistUpdatedWalletBalance($fromWallet);
 
-        $fromWallet->setId($fromWalletAttribures['id']);
-        $fromWallet->setUserId($fromWalletAttribures['user_id']);
+        $toWallet = $this->updateBalanceByTransaction($transaction, WalletEnumerator::OPERATION_CREDIT);
 
-        $fromWallet->setBalance((float) $fromWalletAttribures['balance'] - $transaction->getValue());
+        $this->persistUpdatedWalletBalance($toWallet);
+    }
 
+    private function updateBalanceByTransaction(Transaction $transaction, string $operation): Wallet
+    {
+        if ($operation === WalletEnumerator::OPERATION_CREDIT) {
+            $userId = (string)$transaction->getToId();
+        }
+
+        if ($operation === WalletEnumerator::OPERATION_DEBIT) {
+            $userId = (string)$transaction->getFromId();
+        }
+
+        $walletAttribures = $this->externalRepository->findOneBy('user_id', $userId);
+
+        $wallet = $this->getEntity();
+        $wallet->setId($walletAttribures['id']);
+        $wallet->setUserId($walletAttribures['user_id']);
+
+        if ($operation === WalletEnumerator::OPERATION_CREDIT) {
+            $wallet->setBalance((float)$walletAttribures['balance'] + $transaction->getValue());
+        }
+
+        if ($operation === WalletEnumerator::OPERATION_DEBIT) {
+            $wallet->setBalance((float)$walletAttribures['balance'] - $transaction->getValue());
+        }
+
+        return $wallet;
+    }
+
+    private function persistUpdatedWalletBalance(Wallet $updatedWallet): Wallet
+    {
         $result = $this->externalRepository->edit(
-            $fromWallet->getId(),
-            ['balance' => $fromWallet->getBalance()]
+            $updatedWallet->getId(),
+            ['balance' => $updatedWallet->getBalance()]
         );
 
-        $fromWallet->setBalance($result['balance']);
+        $updatedWallet->setBalance($result['balance']);
 
-        $toWalletAttribures = $this->externalRepository->findOneBy('user_id', (string) $transaction->getToId());
-
-        $toWallet = $this->getEntity();
-
-        $toWallet->setId($toWalletAttribures['id']);
-        $toWallet->setUserId($toWalletAttribures['user_id']);
-
-        $toWallet->setBalance((float) $toWalletAttribures['balance'] - $transaction->getValue());
-
-        $result = $this->externalRepository->edit(
-            $toWallet->getId(),
-            ['balance' => $toWallet->getBalance()]
-        );
-
-        $toWallet->setBalance($result['balance']);
+        return $updatedWallet;
     }
 }

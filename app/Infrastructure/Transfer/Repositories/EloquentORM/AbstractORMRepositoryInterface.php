@@ -17,4 +17,6 @@ interface AbstractORMRepositoryInterface
     public function store(array $attributes = []): array;
 
     public function edit(int $id, array $attributes = []): array;
+
+    public function find(array $filters = [], array $relations = []): array;
 }

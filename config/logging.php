@@ -35,6 +35,15 @@ return [
     */
 
     'channels' => [
+
+        'integration' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/integration.log'),
+            'bubble' => false,
+            'days' => 10,
+            'ignore_exceptions' => true,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],

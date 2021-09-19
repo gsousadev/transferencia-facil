@@ -19,7 +19,7 @@ abstract class AbstractORMRepository implements AbstractORMRepositoryInterface
         return $model === null ? [] : $model->toArray();
     }
 
-    public function find(array $filters = []): ?array
+    public function find(array $filters = [], array $relations = []): array
     {
         $query = $this->model::query();
 
@@ -29,28 +29,35 @@ abstract class AbstractORMRepository implements AbstractORMRepositoryInterface
         unset($filters['initial_date'], $filters['final_date']);
 
         if (!empty($filters)) {
-            $query = $query->where($filters);
+            $newLikeFilters = [];
+
+            foreach ($filters as $key => $value) {
+                $newLikeFilters[] = [
+                    $key,
+                    'like',
+                    '%' . $value . '%'
+                ];
+            }
+
+            $query = $query->where($newLikeFilters);
         }
 
-        if (($initialDate != null && $finalDate === null)) {
-
-            $initialDate = Carbon::parse($initialDate);
-            $finalDate = Carbon::parse($finalDate);
-
-            $query = $query
-                ->where('created_at', '>=', $initialDate->toDateTimeString())
-                ->where('updated_at', '<=', $finalDate->toDateTimeString());
+        if (!empty($relations)) {
+            $query = $query->with($relations);
         }
 
-        return $query
-            ->where('created_at', '>=', $initialDate->toDateTimeString())
-            ->where('updated_at', '<=', $finalDate->toDateTimeString())
-            ->with(['from', 'to'])
-            ->get()
-            ->toArray();
+        if ($initialDate !== null && $finalDate !== null) {
+            $initialDate = Carbon::parse($initialDate)->startOfDay()->toDateTimeString();
+            $finalDate = Carbon::parse($finalDate)->endOfDay()->toDateTimeString();
+
+
+            $query = $query->whereBetween('created_at', [$initialDate, $finalDate]);
+        }
+
+        return $query->get()->toArray();
     }
 
-    public function findBy(string $key, string $value): ?array
+    public function findBy(string $key, string $value): array
     {
         return $this->model::query()->where($key, $value)->get()->toArray();
     }
@@ -68,7 +75,7 @@ abstract class AbstractORMRepository implements AbstractORMRepositoryInterface
 
         $this->model->save();
 
-        return $this->model->refresh()->toArray();
+        return $this->model->toArray();
     }
 
     public function edit(int $id, array $attributes = []): array
@@ -79,6 +86,6 @@ abstract class AbstractORMRepository implements AbstractORMRepositoryInterface
 
         $model->save();
 
-        return $this->model->refresh()->toArray();
+        return $model->toArray();
     }
 }

@@ -123,8 +123,8 @@ class TransactionService
 
     private function throwIfUserIsShopkeeper(User $fromUser): void
     {
-        $shopkeeper = $this->shopkeeperRepository->getByFromUserId($fromUser->getId());
-
+        $shopkeeper = $this->shopkeeperRepository->getByUserId($fromUser->getId());
+        
         if ($shopkeeper instanceof Shopkeeper) {
             throw new ShopkeppersCannotSendMoneyException();
         };
@@ -138,9 +138,9 @@ class TransactionService
             throw new TransactionNotAuthorizedException();
         }
 
-        $this->walletRepository->makeTransactionBetweenWallest($transaction);
+        $this->walletRepository->makeTransactionBetweenWallets($transaction);
 
-        $this->transactionRepository->changeStatusToSuccess($transaction);
+        $transaction = $this->transactionRepository->changeStatusToSuccess($transaction);
 
         $this->sendNotification($transaction);
 
@@ -173,6 +173,6 @@ class TransactionService
 
     private function sendNotification(Transaction $transaction): bool
     {
-        return $this->transactionRepository->verifyExternalAuthorizeService($transaction);
+        return $this->transactionRepository->sendNotification($transaction);
     }
 }

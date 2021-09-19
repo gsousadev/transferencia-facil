@@ -46,4 +46,11 @@ class UserRepository extends AbstractRepository
 
         return $entity;
     }
+
+    public function find(array $filters = []): ?array
+    {
+        $relations = ['wallet'];
+
+        return $this->externalRepository->find($filters, $relations);
+    }
 }

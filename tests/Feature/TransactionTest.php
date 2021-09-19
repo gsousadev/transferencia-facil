@@ -13,9 +13,9 @@ use Tests\TestCase;
 
 class TransactionTest extends TestCase
 {
-    const VALID_CNPJ = '12345678910111';
-    const VALID_CPF = '00000000868';
-    const VALID_CPF_2 = '00000001597';
+    const VALID_CNPJ = '10101010101010';
+    const VALID_CPF = '10101010101';
+    const VALID_CPF_2 = '20202020202';
 
     /** @test */
     public function transaction_invalid_from_shopkeepers_to_user(): void
