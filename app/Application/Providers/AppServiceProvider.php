@@ -2,6 +2,8 @@
 
 namespace Application\Providers;
 
+use App\Infrastructure\Transfer\Repositories\Integrators\ExternalAuthorizeService;
+use App\Infrastructure\Transfer\Repositories\Integrators\SendNotificationService;
 use Domain\Transfer\Repositories\ShopkeeperRepository;
 use Domain\Transfer\Repositories\TransactionRepository;
 use Domain\Transfer\Repositories\UserRepository;
@@ -46,7 +48,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(TransactionRepository::class, function ($app) {
             return new TransactionRepository(
                 $app->make(TransactionORMRepository::class),
-                $app->make(::class)
+                $app->make(ExternalAuthorizeService::class),
+                $app->make(SendNotificationService::class)
             );
         });
 
