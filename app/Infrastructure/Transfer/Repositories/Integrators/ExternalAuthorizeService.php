@@ -37,6 +37,8 @@ class ExternalAuthorizeService implements ExternalAuthorizeServiceInterface
                     'code' => $throwable->getCode()
                 ]
             );
+
+            throw $throwable;
         }
     }
 }

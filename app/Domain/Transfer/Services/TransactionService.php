@@ -13,6 +13,7 @@ use Domain\Transfer\Exceptions\BusinessExceptions\TransactionNotAuthorizedExcept
 use Domain\Transfer\Exceptions\BusinessExceptions\TransactionValueInvalidException;
 use Domain\Transfer\Exceptions\BusinessExceptions\UserIncorrectIdentifyException;
 use Domain\Transfer\Exceptions\BusinessExceptions\WalletNotFoundToUserException;
+use Domain\Transfer\Exceptions\IntegrationExceptions\SendNotificationServiceException;
 use Domain\Transfer\Exceptions\UserNotFoundException;
 use Domain\Transfer\Repositories\ShopkeeperRepository;
 use Domain\Transfer\Repositories\TransactionRepository;
@@ -124,7 +125,7 @@ class TransactionService
     private function throwIfUserIsShopkeeper(User $fromUser): void
     {
         $shopkeeper = $this->shopkeeperRepository->getByUserId($fromUser->getId());
-        
+
         if ($shopkeeper instanceof Shopkeeper) {
             throw new ShopkeppersCannotSendMoneyException();
         };
@@ -134,7 +135,7 @@ class TransactionService
     {
         $this->verifyUserWallet($transaction);
 
-        if(!$this->verifyExternalAuthorizeService($transaction)){
+        if (!$this->verifyExternalAuthorizeService($transaction)) {
             throw new TransactionNotAuthorizedException();
         }
 

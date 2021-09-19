@@ -84,11 +84,7 @@ class TransactionRepository extends AbstractRepository
 
     public function sendNotification(Transaction $transaction): bool
     {
-        try {
-            return $this->sendNotificationService->send($transaction->toArray());
-        } catch (\Throwable $throwable) {
-            throw new SendNotificationServiceException($throwable->getCode(), $throwable->getMessage());
-        }
+        return $this->sendNotificationService->send($transaction->toArray());
     }
 
     public function changeStatusToSuccess(Transaction $transaction): Transaction
