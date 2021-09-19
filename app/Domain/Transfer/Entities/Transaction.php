@@ -10,14 +10,16 @@ use Infrastructure\Transfer\Models\TransactionInterface;
 
 class Transaction extends EntityAbstract implements TransactionInterface
 {
-    /** @var float  */
-    private $value;
-    /** @var int  */
-    private $fromId;
-    /** @var int  */
-    private $toId;
-    /** @var string  */
-    private $status;
+    /** @var float */
+    private $value = null;
+    /** @var int */
+    private $fromId = null;
+    /** @var int */
+    private $toId = null;
+    /** @var string */
+    private $status = null;
+    /** @var string */
+    private $reasonCancellation = null;
 
     public function getValue(): float
     {
@@ -59,11 +61,24 @@ class Transaction extends EntityAbstract implements TransactionInterface
         $this->status = $status;
     }
 
-    public function toSave(): array{
+    public function setReasonCancellation(string $reason): void
+    {
+        $this->reasonCancellation = $reason;
+    }
+
+    public function getReasonCancellation(): string
+    {
+        return $this->reasonCancellation;
+    }
+
+    public function toArray(): array
+    {
         return [
-            'from_id' => $this->fromId,
-            'to_id' => $this->toId,
+            'id' => $this->id,
+            'from_user_id' => $this->fromId,
+            'to_user_id' => $this->toId,
             'value' => $this->value,
+            'reason_cancellation' => $this->reasonCancellation,
             'status' => TransactionEnumerator::STATUS_PROCESSING
         ];
     }

@@ -2,39 +2,51 @@
 
 namespace Database\Seeders;
 
-use Infrastructure\Transfer\Models\Shopkeeper;
-use Infrastructure\Transfer\Models\User;
 use Illuminate\Database\Seeder;
+use Infrastructure\Transfer\Models\EloquentORM\Shopkeeper;
+use Infrastructure\Transfer\Models\EloquentORM\User;
+use Infrastructure\Transfer\Models\EloquentORM\Wallet;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
      * @return void
      */
     public function run(): void
     {
-        User::factory(
+        $commonUser = User::factory(
             [
                 'name' => 'Guilherme',
-                'cpf' => '05069074490'
+                'cpf' => '00000000868'
             ]
         )->create();
 
+        Wallet::factory(
+            [
+                'user_id' => $commonUser->id
+            ]
+        )->create();
 
-        $shopkeeperUser = User::factory()->make(
+        $shopkeeperUser = User::factory(
             [
                 'name' => 'Maria',
-                'cpf' => '62270257472'
+                'cpf' => '00000001597'
             ]
-        );
+        )->create();
 
-        Shopkeeper::factory()->make(
+        Shopkeeper::factory(
             [
-                'cnpj' => '123456789101213',
-                'tradingName' => 'Coca_Cola'
+                'cnpj' => '12345678910121',
+                'trading_name' => 'Coca_Cola',
+                'user_id' => $shopkeeperUser->id
             ]
-        )->setRelation('user', $shopkeeperUser);
+        )->create();
+
+        Wallet::factory(
+            [
+                'user_id' => $shopkeeperUser->id
+            ]
+        )->create();
     }
 }

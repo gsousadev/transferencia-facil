@@ -44,7 +44,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(TransactionRepository::class, function ($app) {
-            return new TransactionRepository($app->make(TransactionORMRepository::class));
+            return new TransactionRepository(
+                $app->make(TransactionORMRepository::class),
+                $app->make(::class)
+            );
         });
 
         $this->app->singleton(ShopkeeperRepository::class, function ($app) {

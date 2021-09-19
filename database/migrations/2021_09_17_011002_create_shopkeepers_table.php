@@ -20,7 +20,12 @@ class CreateShopkeepersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            ;
         });
     }
 
@@ -31,6 +36,10 @@ class CreateShopkeepersTable extends Migration
      */
     public function down()
     {
+        Schema::table('shopkeepers', function (Blueprint $table){
+            $table->dropForeign('shopkeepers_user_id_foreign');
+        });
+
         Schema::dropIfExists('shopkeepers');
     }
 }

@@ -19,7 +19,11 @@ class CreateWalletsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -30,6 +34,9 @@ class CreateWalletsTable extends Migration
      */
     public function down()
     {
+        Schema::table('wallets', function (Blueprint $table){
+            $table->dropForeign('wallets_user_id_foreign');
+        });
         Schema::dropIfExists('user_wallets');
     }
 }

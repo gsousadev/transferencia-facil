@@ -6,11 +6,11 @@ namespace Domain\Transfer\Exceptions\BusinessExceptions;
 
 use Domain\Transfer\Exceptions\BaseExceptions;
 
-class SameUserReceivingAndPayingException extends BaseExceptions
+class TransactionNotAuthorizedException extends BaseExceptions
 {
     protected $code = 422;
-    public const SHORT_MESSAGE = 'SameUserReceivingAndPaying';
-    public const DESCRIPTION_MESSAGE = 'Transação Invalida. Pagador e Recebedor não podem ser iguais';
+    public const SHORT_MESSAGE = 'TransactionNotAuthorized';
+    public const DESCRIPTION_MESSAGE = 'Transação Não Autorizada';
 
     public function __construct()
     {

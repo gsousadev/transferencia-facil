@@ -6,11 +6,11 @@ namespace Domain\Transfer\Exceptions\BusinessExceptions;
 
 use Domain\Transfer\Exceptions\BaseExceptions;
 
-class SameUserReceivingAndPayingException extends BaseExceptions
+class WalletNotFoundToUserException extends BaseExceptions
 {
-    protected $code = 422;
-    public const SHORT_MESSAGE = 'SameUserReceivingAndPaying';
-    public const DESCRIPTION_MESSAGE = 'Transação Invalida. Pagador e Recebedor não podem ser iguais';
+    protected $code = 404;
+    public const SHORT_MESSAGE = 'WalletNotFoundToUser';
+    public const DESCRIPTION_MESSAGE = 'Não foi encontrada nenhuma conta para o usuário';
 
     public function __construct()
     {

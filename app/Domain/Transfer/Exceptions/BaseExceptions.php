@@ -11,19 +11,21 @@ abstract class BaseExceptions extends Exception
 {
     protected $shortMessage;
     protected $errors;
+    protected $description;
 
-    protected function __construct(string $shortMessage, string $message, array $errors = [])
+    protected function __construct(string $shortMessage, string $description, array $errors = [])
     {
         $this->shortMessage = $shortMessage;
-        $this->message = $message;
+        $this->description = $description;
         $this->errors = $errors;
     }
 
     public function render(): JsonResponse
     {
         $responseData =  [
+            'originalMessage' => $this->message,
             'shortMessage' => $this->shortMessage,
-            'message' => $this->message
+            'description'=> $this->description
         ];
 
         if(!empty($this->errors)){

@@ -6,11 +6,11 @@ namespace Domain\Transfer\Exceptions\BusinessExceptions;
 
 use Domain\Transfer\Exceptions\BaseExceptions;
 
-class SameUserReceivingAndPayingException extends BaseExceptions
+class InsufficientWalletBalanceException extends BaseExceptions
 {
-    protected $code = 422;
-    public const SHORT_MESSAGE = 'SameUserReceivingAndPaying';
-    public const DESCRIPTION_MESSAGE = 'Transação Invalida. Pagador e Recebedor não podem ser iguais';
+    protected $code = 404;
+    public const SHORT_MESSAGE = 'InsufficientWalletBalance';
+    public const DESCRIPTION_MESSAGE = 'Saldo em conta insulficiente. A transferência será cancelada';
 
     public function __construct()
     {

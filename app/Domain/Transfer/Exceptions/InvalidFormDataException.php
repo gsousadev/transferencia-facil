@@ -7,12 +7,14 @@ namespace Domain\Transfer\Exceptions;
 class InvalidFormDataException extends BaseExceptions
 {
     protected $code = 400;
+    public const SHORT_MESSAGE = 'userNotFound';
+    public const DESCRIPTION_MESSAGE = 'Usuário não encontrado';
 
     public function __construct(array $errors = [])
     {
         parent::__construct(
-            'invalidData',
-            'Dados incorretos. Verifique os erros encontrados',
+            self::SHORT_MESSAGE,
+            self::DESCRIPTION_MESSAGE,
             $errors
         );
     }

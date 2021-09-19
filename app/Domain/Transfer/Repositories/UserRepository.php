@@ -33,7 +33,7 @@ class UserRepository extends AbstractRepository
 
     public function filledEntity(array $attributes = []): ?User
     {
-        $entity = parent::filledEntity();
+        $entity = parent::filledEntity($attributes);
 
         if (!$entity instanceof User) {
             return null;

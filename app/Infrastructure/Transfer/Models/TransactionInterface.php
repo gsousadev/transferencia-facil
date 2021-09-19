@@ -14,4 +14,6 @@ interface TransactionInterface
     public function setFromId(int $value): void;
     public function getToId(): int;
     public function setToId(int $value): void;
+    public function getReasonCancellation(): string;
+    public function setReasonCancellation(string $value): void;
 }

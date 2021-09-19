@@ -22,9 +22,9 @@ class TransactionController extends Controller
 
     public function store(StoreTransactionRequest $request): JsonResponse
     {
-        $this->transactionService->store($request->only(['value', 'from_user', 'to_user']));
+        $transaction = $this->transactionService->process($request->only(['value', 'from_user', 'to_user']));
 
-        return $this->response([], self::SUCCESS_TRANSACTION_MESSAGE);
+        return $this->response($transaction, self::SUCCESS_TRANSACTION_MESSAGE);
     }
 
     public function find(Request $request): JsonResponse

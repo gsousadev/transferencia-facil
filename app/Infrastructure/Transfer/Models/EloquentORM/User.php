@@ -27,10 +27,6 @@ class User extends Model
         'password',
     ];
 
-    protected $hidden = [
-        'password',
-    ];
-
     public function shopkeeper(): HasOne
     {
         return $this->hasOne(Shopkeeper::class);
