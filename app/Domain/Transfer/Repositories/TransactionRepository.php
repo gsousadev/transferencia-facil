@@ -85,4 +85,18 @@ class TransactionRepository extends AbstractRepository
         }
 
     }
+
+    public function changeStatusToSuccess(Transaction $transaction)
+    {
+        $result = $this->externalRepository->edit(
+            $transaction->getId(),
+            [
+                'status' => TransactionEnumerator::STATUS_APPROVED,
+            ]
+        );
+
+        $transaction->setStatus($result['status']);
+
+        return $transaction;
+    }
 }

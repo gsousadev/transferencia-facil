@@ -140,6 +140,8 @@ class TransactionService
 
         $this->walletRepository->makeTransactionBetweenWallest($transaction);
 
+        $this->transactionRepository->changeStatusToSuccess($transaction);
+
         $this->sendNotification($transaction);
 
         return $transaction;
