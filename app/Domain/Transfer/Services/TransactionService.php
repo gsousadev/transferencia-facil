@@ -99,7 +99,7 @@ class TransactionService
             throw new SameUserReceivingAndPayingException();
         }
 
-        if ($value <= 0 && !is_float($value)) {
+        if ($value <= 0 || !is_float($value)) {
             throw new TransactionValueInvalidException();
         }
 
