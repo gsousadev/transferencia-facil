@@ -1,8 +1,6 @@
-<div style="display:flex; align-content: center; color: #6495ED;">
-<h1 style="text-align: center;display: inline-block; background: #fff;  padding: 20px;">
-Transferência Fácil
-</h1>
-</div>
+# **Transferência Fácil**
+
+---
 
 ### **Clonando repositorio**
 
@@ -10,7 +8,7 @@ Rodar o comando GIT CLONE para copiar repositório do projeto do github
 
     git clone git@github.com:gsousadev/transferencia-facil.git
 
-<br/>
+---
 
 ### **Criação e inicialização das imagens e containers docker**
 
@@ -22,7 +20,7 @@ OBS: O parametro "--build" deve ser usado apenas na primeira vez.
     
     docker-compose up -d --build
 
-<br/>
+---
 
 ### **Inicialização do Projeto**
 
